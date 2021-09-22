@@ -1,5 +1,5 @@
 import ListItem from './ListItem';
-import { gql, useQuery, useLazyQuery } from '@apollo/client'
+import { gql, useQuery, useMutation } from '@apollo/client'
 
 const GetPenumpang = gql`
     query MyQuery {
@@ -11,8 +11,25 @@ const GetPenumpang = gql`
       }
     `;
 
-const ListPassenger = (props) => {
+const hapusPengunjung = gql`
+    mutation MyMutation($id: Int!) {
+        delete_todolist_by_pk(id: $id)
+    }
+    `;
+
+// const DeleteTodo = gql`
+//     mutation MyMutation($id: Int!) {
+//         delete_anggota_by_pk(id: $id) {
+//             id
+//         }
+//     }
+//     `;
+
+const ListPassenger = (penumpang) => {
     const {data, error} = useQuery(GetPenumpang);
+    const [hapusPengunjung] = useMutation(hapusPengunjung, {
+        refetchQueries: [GetPenumpang]
+      });
 
     if (error) {
         console.log(error)
@@ -32,7 +49,7 @@ const ListPassenger = (props) => {
                     <ListItem
                         key={item.id}
                         data={item}
-                        hapusPengunjung={props.hapusPengunjung}
+                        hapusPengunjung={hapusPengunjung}
                     />
                 ))}
             </table>
