@@ -3,80 +3,41 @@ import { v4 as uuidv4 } from "uuid";
 import PassengerInput from './PassengerInput';
 import ListPassenger from './ListPassenger';
 import Header from './Header';
+import { gql, useQuery, useMutation } from '@apollo/client'
 
-class Home extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data : [
-                {
-                    id: uuidv4(),
-                    nama: 'Yoga',
-                    umur: 22,
-                    jenisKelamin: 'Pria'
-                },
-                {
-                    id: uuidv4(),
-                    nama: 'Ria',
-                    umur: 19,
-                    jenisKelamin: 'Wanita'
-                },
-                {
-                    id: uuidv4(),
-                    nama: 'Fahmi',
-                    umur: 25,
-                    jenisKelamin: 'Pria'
-                },
-                {
-                    id: uuidv4(),
-                    nama: 'Lala',
-                    umur: 21,
-                    jenisKelamin: 'Wanita'
-                },
-                {
-                    id: uuidv4(),
-                    nama: 'Ivan',
-                    umur: 25,
-                    jenisKelamin: 'Pria'
-                }
-            ]
-        }
-    }
+function Home () {
+//     const { data, loading, error, refetch } = useQuery(GetPenumpang);
+//     const [hapus, {loading : loadingDelete}] = useMutation(hapusPenumpang,{
+//         refetchQueries: [GetPenumpang]
+//    });
 
-    hapusPengunjung = id => {
-        this.setState({    
-            data: [      
-                ...this.state.data.filter(item => {        
-                    return item.id !== id;      
-                })    
-            ]  
-        });
-    };
+//     if (error) {
+//         console.log(error)
+//         return null
+//     }
     
-    tambahPengunjung = newUser => {
-        const newData = {
-            id: uuidv4(),
-            ...newUser
-        }; 
-        this.setState({    
-            data: [...this.state.data, newData]  
-        });
-    };
+    // tambahPengunjung = newUser => {
+    //     const newData = {
+    //         id: uuidv4(),
+    //         ...newUser
+    //     }; 
+    //     this.setState({    
+    //         data: [...state.data, newData]  
+    //     });
+    // };
     
-    render() {
         return (
             <div>
                 <Header/>
                 <ListPassenger 
-                    data={this.state.data}
-                    hapusPengunjung={this.hapusPengunjung}
+                    // data={data}
+                    // hapusPengunjung={hapusPengunjung}
                 />
                 <PassengerInput
-                    tambahPengunjung={this.tambahPengunjung}
+                    // tambahPengunjung={tambahPengunjung}
                 />
             </div>
         )
-    }
 }
 
 export default Home;
